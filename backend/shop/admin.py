@@ -4,4 +4,4 @@ from .models import Category
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'description')
-    prepopulated_fields = {'slug': ('name',)}  # auto-fill slug in admin
+    prepopulated_fields = {'slug': ('name',)}  
