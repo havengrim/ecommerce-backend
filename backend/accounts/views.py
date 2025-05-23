@@ -3,9 +3,9 @@ from rest_framework.response import Response
 from rest_framework import status, permissions
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
-from .serializers import RegisterSerializer
+from .serializers import RegisterSerializer, UserSerializer
 from django.contrib.auth import get_user_model
-
+from rest_framework import serializers
 User = get_user_model()
 
 class RegisterView(APIView):
@@ -33,3 +33,12 @@ class LogoutView(APIView):
     def post(self, request):
         request.user.auth_token.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class UserListView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
