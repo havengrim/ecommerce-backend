@@ -7,7 +7,7 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'slug', 'description']
 
 class ProductSerializer(serializers.ModelSerializer):
-    # Allow setting category by its ID on input
+
     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
 
     class Meta:
